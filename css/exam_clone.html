@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url('https://images.unsplash.com/photo-1505506874110-6a7a69069a08?auto=format&fit=crop&q=80&w=1374&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    #header {
+      background-color: rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      text-align: right;
+    }
+
+    #header a {
+      display: inline-block;
+      color: white;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    #header a:hover {
+      background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    .content {
+      color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 20px;
+    }
+
+    .button-container {
+      margin-top: 100px;
+      text-align: center; 
+      
+    }
+
+    .button {
+      display: inline-block;
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+      padding: 10px;
+      cursor: pointer;
+
+    }
+
+    .button img {
+      margin-left: 5px;
+      
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="header">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="content">안녕하세요. 제 이름은 <font color="yellow">김수민입니다.</font>
+    <br>저는 게임 개발자입니다.
+    <div class="button-container">
+      <div class="button">
+        View my work
+        <img src="https://ifh.cc/g/6PFfPW.png" alt="arrow icon" width="20" height="20">
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
