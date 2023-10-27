@@ -7,13 +7,33 @@
   <title>Document</title>
   <script>
     function inputNum() {
+      while (true) {
+        // 1. 숫자를 입력받고
+        let num = prompt("숫자를 입력해주세요.");
+
+        // 2. 숫자가 아니면 '숫자를 입력해주세요'라는 경고창을 띄움
+        if (isNaN(num) === true || num === "") {
+          alert("숫자를 입력해주세요");
+        } else if (isNaN(num) === false && 1 > num || num > 100) {
+          // 3. 숫자가 맞고 1 이상 혹은 100 이하가 아니면 '1이상 100 이하를 넣어주세요' 경고창을 띄움
+          alert("1이상 100이하를 넣어주세요");
+        } else break;
+      }
+
+      for (let i = 1; i <= 100; i++) {
+        console.log(i);
+      }
+      alert("완료되었습니다.");
+    }
+
+    function inputNum2(){
       // 1. 숫자를 입력받고
       let num = prompt("숫자를 입력해주세요.");
 
       // 2. 숫자가 아니면 '숫자를 입력해주세요'라는 경고창을 띄움
       if (isNaN(num) === true) {
         alert("숫자를 입력해주세요");
-      } else if (isNaN(num) === false && 0 > num || num > 100) {
+      } else if (0 > num || num > 100) {
         // 3. 숫자가 맞고 1 이상 혹은 100 이하가 아니면 '1이상 100 이하를 넣어주세요' 경고창을 띄움
         alert("1이상 100이하를 넣어주세요");
       } else {
@@ -27,7 +47,8 @@
 </head>
 
 <body>
-  <button onclick="inputNum()">클릭</button>
+  <button onclick="inputNum()">클릭</button><br>
+  <button onclick="inputNum2()">클릭2</button>
 </body>
 
 </html>
