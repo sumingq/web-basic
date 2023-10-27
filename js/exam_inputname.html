@@ -7,11 +7,14 @@
   <title>Document</title>
   <script>
     function askname() {
+      // 1. 이름을 입력받고
       let name = prompt("이름을 입력해주세요");
 
+      // 2. 이름이 입력되지 않았을 때 '입력해주세요'라고 물어보고 다시 입력받고
       if (name === null || name === "") {
         alert("이름을 입력해주세요.");
       } else {
+        // 이름 입력되었을 때 로그에 이름을 띄우고 경고창으로 ‘누구누구님 안녕하세요.’를 띄워 주세요.
         console.log(name);
         alert(name + "님 안녕하세요.");
       }
