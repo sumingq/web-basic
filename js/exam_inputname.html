@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,18 +9,19 @@
     function askname() {
       let name = prompt("이름을 입력해주세요");
 
-      if(name===null||name===""){
+      if (name === null || name === "") {
         alert("이름을 입력해주세요.");
-      }
-      else{
+      } else {
         console.log(name);
-        alert(name+"님 안녕하세요.");
+        alert(name + "님 안녕하세요.");
       }
     }
   </script>
 </head>
+
 <body>
   <button onclick="askname()">클릭</button>
 
 </body>
+
 </html>
