@@ -5,18 +5,52 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    #box1 {
+      width: 100px;
+      height: 100px;
+      background-color: aqua;
+    }
+
+    .bg-red {
+      width: 50px;
+      height: 50px;
+      background-color: red;
+    }
+
+    .bg-blue {
+      width: 50px;
+      height: 50px;
+      background-color: blue;
+    }
+  </style>
 </head>
 
 <body>
   <button onclick="addText()">추가</button>
-  
+
+  <div id="box1" onmouseover="mouseOver()" onmouseout="mouseout()">box1</div>
+  <div class="bg-red">1</div>
+  <div id="text"></div>
+  <div class="bg-red">2</div>
+
   <script>
     // document : 이 문서 자체를 의미함
-    document.write('<h1>제목입니다.</h1>');
-
-    function addText(){
-      document.write('<h1>제목입니다.</h1>');
+    function addText() {
+      const textDiv = document.getElementById('text');
+      textdiv.innerHTML = '<h1>Hello</h1>';
     }
+
+    function mouseOut(){
+      box1.style.backgroundColor='red';
+      console.log("mouseout");
+    }
+
+    function mouseOver(){
+      box1.style.backgroundColor='yellow';
+      console.log("mouseover");
+    }
+
   </script>
 
 </body>
