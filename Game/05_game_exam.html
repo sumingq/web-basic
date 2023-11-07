@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Game</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f8f9fa;
+      flex-direction: column;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    #game-board {
+      display: grid;
+      grid-template-columns: repeat(4, 100px);
+      grid-gap: 10px;
+    }
+
+    .tile {
+      width: 100px;
+      height: 100px;
+      background-color: #007bff;
+      color: #fff;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 2px solid #000;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .flipped {
+      background-color: #fff !important;
+      color: #000 !important;
+      border-color: #000 !important;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>MEMORY GAME</h1>
+  <div id="game-board"></div>
+
+  <script>
+    const gameBoard = document.getElementById('game-board');
+    let tiles = [];
+    let flippedTiles = [];
+    let isFlipping = false;
+
+    // Create an array with pairs of numbers
+    const numbers = [...Array(8).keys(), ...Array(8).keys()];
+    numbers.sort(() => Math.random() - 0.5);
+
+    // Initialize the game
+    function initializeGame() {
+      // Remove all child nodes from gameBoard
+      while (gameBoard.firstChild) {
+        gameBoard.removeChild(gameBoard.firstChild);
+      }
+
+      tiles = [];
+      flippedTiles = [];
+      isFlipping = false;
+
+      for (let i = 0; i < 16; i++) {
+        const tile = document.createElement('div');
+        tile.classList.add('tile');
+        tile.dataset.value = numbers[i];
+        tile.textContent = '?';
+        tile.addEventListener('click', flipTile);
+        gameBoard.appendChild(tile);
+        tiles.push(tile);
+      }
+    }
+
+    // Flip the selected tile
+    function flipTile() {
+      if (isFlipping) return;
+      const selectedTile = this;
+
+      if (flippedTiles.length < 2 && !flippedTiles.includes(selectedTile)) {
+        flippedTiles.push(selectedTile);
+        selectedTile.textContent = selectedTile.dataset.value;
+        selectedTile.classList.add('flipped');
+
+        if (flippedTiles.length === 2) {
+          isFlipping = true;
+          setTimeout(checkMatch, 1000);
+        }
+      }
+    }
+
+    // Check if the flipped tiles match
+    function checkMatch() {
+      const [tile1, tile2] = flippedTiles;
+
+      if (tile1.dataset.value === tile2.dataset.value) {
+        // Matched
+        tile1.removeEventListener('click', flipTile);
+        tile2.removeEventListener('click', flipTile);
+      } else {
+        // Not matched
+        tile1.textContent = '?';
+        tile2.textContent = '?';
+        tile1.classList.remove('flipped');
+        tile2.classList.remove('flipped');
+      }
+
+      flippedTiles = [];
+      isFlipping = false;
+
+      // Check if all tiles are matched
+      if (document.querySelectorAll('.tile:not(.flipped)').length === 0) {
+        alert('축하합니다!');
+        initializeGame();
+      }
+    }
+
+    // Initialize the game
+    initializeGame();
+  </script>
+</body>
+
+</html>

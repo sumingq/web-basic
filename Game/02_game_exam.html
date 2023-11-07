@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+
+  <style>
+    #stage {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      border: 1px solid black;
+    }
+
+    #player {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="stage">
+    <img id="player" src="PO.png" alt="">
+  </div>
+  TIME : <span id="timeText">00.00</span>
+
+  <script>
+    const player = $('#player');
+    const timeText=$('#timeText');
+    
+    let time = 0;
+
+    setInterval(function () {
+      time++;
+      const minutes = Math.floor((time%3600/ 60));
+      const seconds = time%60;
+
+
+      timeText.text(time);
+    }, 1000);
+
+
+    function moveRight() {
+      const playerRight = parseInt(player.css('right'), 10);
+      if (playerRight <= 0) {
+        return;
+      }
+
+      player.css({ left: '+=20px' });
+      console.log(parseInt(player.css('Left'), 10));
+    }
+
+    function moveLeft() {
+      const playerLeft = parseInt(player.css('Left'), 10);
+      if (playerLeft <= 0) {
+        return;
+      }
+
+      player.css({ left: '-=20px' });
+      console.log(parseInt(player.css('Left'), 10));
+    }
+
+    function moveUp() {
+      const playerTop = parseInt(player.css('top'), 10);
+      if (playerTop <= 0) {
+        return;
+      }
+
+      player.css({ top: '-=20px' });
+      console.log(parseInt(player.css('top'), 10));
+    }
+
+    function moveDown() {
+      const playerBottom = parseInt(player.css('Bottom'), 10);
+      if (playerBottom <= 0) {
+        return;
+      }
+
+      player.css({ top: '+=20px' });
+      console.log(parseInt(player.css('top'), 10));
+    }
+
+    $(document).keydown(function (event) {
+      // console.log(event.key);
+
+      switch (event.key) {
+        case 'd':
+        case 'ArrowRight':
+          moveRight();
+          break;
+        case 'a':
+        case 'ArrowLeft':
+          moveLeft();
+          break;
+        case 'w':
+        case 'ArrowUp':
+          moveUp();
+          break;
+        case 's':
+        case 'ArrowDown':
+          moveDown();
+          break;
+        default:
+      }
+    });
+  </script>
+
+</body>
+
+</html>
