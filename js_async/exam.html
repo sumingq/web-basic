@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Information</title>
+    <style>
+        body {
+            background-color: #f0f0f0; /* 회색 배경색상 */
+        }
+
+        #movie-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .movie-card {
+            width: 30%;
+            margin: 10px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #fff; /* 카드 배경색상 */
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+        }
+
+        .movie-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px; /* 이미지 모서리를 둥글게 만듦 */
+        }
+
+        .movie-title {
+            color: #000; /* 검은 글씨 색상 */
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .movie-description {
+            display: none;
+            margin-top: 10px;
+            background-color: #fff; /* 흰색 배경색상 */
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .selected {
+            background-color: #f0f0f0; /* 선택된 카드의 배경색상 */
+        }
+    </style>
+</head>
+<body>
+
+<div id="movie-list"></div>
+
+<script>
+    const apiUrl = 'https://api.themoviedb.org/3/movie/upcoming';
+    const apiKey = 'a64533e7ece6c72731da47c9c8bc691f';
+    const language = 'ko-KR';
+    const page = 1;
+
+    async function fetchMovieData() {
+        try {
+            const response = await fetch(`${apiUrl}?api_key=${apiKey}&language=${language}&page=${page}`);
+            const data = await response.json();
+            displayMovies(data.results);
+        } catch (error) {
+            console.error('Error fetching movie data:', error);
+        }
+    }
+
+    function displayMovies(movies) {
+        const movieListContainer = document.getElementById('movie-list');
+
+        movies.forEach(movie => {
+            const movieDiv = document.createElement('div');
+            movieDiv.className = 'movie-card';
+            movieDiv.innerHTML = `
+                <h2 class="movie-title">${movie.title}</h2>
+                <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title} Poster">
+                <p class="movie-description">${movie.overview}</p>
+            `;
+            movieListContainer.appendChild(movieDiv);
+
+            // 클릭 이벤트 리스너 추가
+            movieDiv.addEventListener('click', () => {
+                // 이미 클릭된 경우, 다시 클릭하면 숨김
+                if (movieDiv.classList.contains('selected')) {
+                    movieDiv.classList.remove('selected');
+                    const description = movieDiv.querySelector('.movie-description');
+                    description.style.display = 'none';
+                } else {
+                    // 다른 카드를 선택한 경우, 이전에 선택된 카드의 스타일을 초기화하고 현재 카드를 선택 상태로 변경
+                    const selectedCard = document.querySelector('.movie-card.selected');
+                    if (selectedCard) {
+                        selectedCard.classList.remove('selected');
+                        const selectedDescription = selectedCard.querySelector('.movie-description');
+                        selectedDescription.style.display = 'none';
+                    }
+
+                    movieDiv.classList.add('selected');
+                    const description = movieDiv.querySelector('.movie-description');
+                    description.style.display = 'block';
+                }
+            });
+        });
+    }
+
+    fetchMovieData();
+</script>
+
+</body>
+</html>
